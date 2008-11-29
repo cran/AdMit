@@ -21,7 +21,8 @@ AdMitIS(N=1e5, KERNEL, G=function(theta){theta}, mit=list(), ...)
     argument should be a matrix and its output a vector). Moreover, the function must contain
     the logical argument \code{log}. If \code{log=TRUE}, the function
     returns (natural) logarithm values of the kernel function. \code{NA}
-    and \code{NaN} values are not allowed.}
+    and \code{NaN} values are not allowed. (See the function
+    \code{\link{AdMit}} for examples of \code{KERNEL} implementation.)}
   \item{G}{function of interest used in importance
     sampling (see *Details*).}
   \item{mit}{list containing information on the mixture approximation (see *Details*).}
@@ -74,24 +75,31 @@ AdMitIS(N=1e5, KERNEL, G=function(theta){theta}, mit=list(), ...)
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide, van Dijk (2008).
+  can be found in Ardia, Hoogerheide, van Dijk (2008a,b). See also
+  the file \file{AdMitJSS.R} in the package's folder.
   
   Further information on importance sampling can be found
   in Geweke (1989) or Koop (2003).
 }
 \author{David Ardia <\email{david.ardia@unifr.ch}>}
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008) `Adaptive
-  mixture of Student-t distributions as a flexible candidate distribution for efficient 
-  simulation: The R package AdMit', \emph{Working
-    paper}, Econometric Institute, Erasmus University Rotterdam (NL). \url{http://www.tinbergen.nl/}
-  
-  Geweke, J.F. (1989) `Bayesian Inference in Econometric
-  Models Using Monte Carlo Integration', \emph{Econometrica} \bold{57}(6), pp.1317--1339. Reprinted
-  in: \emph{Bayesian Inference}, G. C. Box and N. Polson (Eds.), Edward Elgar Publishing, 1994.
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
+  mixture of Student-t distributions as a flexible candidate
+  distribution for efficient simulation: The R package AdMit',
+  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
+  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
 
-  Koop, G. (2003) \emph{Bayesian Econometrics}, Wiley-Interscience (London, UK), first
-  edition, ISBN: 0470845678.
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit package', 
+  \emph{Econometric Institute report} \bold{2008-17}.
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
+  
+  Geweke, J.F. (1989) `Bayesian Inference in Econometric Models Using
+  Monte Carlo Integration',
+  \emph{Econometrica} \bold{57}(6), pp.1317--1339. Reprinted in:
+  \emph{Bayesian Inference}, G. C. Box and N. Polson (Eds.), Edward Elgar Publishing, 1994.
+
+  Koop, G. (2003) \emph{Bayesian Econometrics}, Wiley-Interscience
+  (London, UK), first edition, ISBN: 0470845678.
 }
 \seealso{%
   \code{\link{AdMit}} for fitting an adaptive mixture of Student-t
@@ -101,7 +109,7 @@ AdMitIS(N=1e5, KERNEL, G=function(theta){theta}, mit=list(), ...)
   as the candidate density.
 }
 \examples{%
-  ## Gelman and Meng (2001) kernel function
+  ## Gelman and Meng (1991) kernel function
   'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
     {
       if (is.vector(x))

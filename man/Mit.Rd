@@ -54,14 +54,20 @@ rMit(N=1, mit=list())
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide, van Dijk (2008).
+  can be found in Ardia, Hoogerheide, van Dijk (2008a,b). See also
+  the file \file{AdMitJSS.R} in the package's folder.
 }
 \author{David Ardia <\email{david.ardia@unifr.ch}>}
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008) `Adaptive
-  mixture of Student-t distributions as a flexible candidate distribution for efficient 
-  simulation: The R package AdMit', \emph{Working
-    paper}, Econometric Institute, Erasmus University Rotterdam (NL). \url{http://www.tinbergen.nl/}
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
+  mixture of Student-t distributions as a flexible candidate
+  distribution for efficient simulation: The R package AdMit',
+  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
+  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
+
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit package', 
+  \emph{Econometric Institute report} \bold{2008-17}.
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
 }
 \seealso{%
   \code{\link{AdMit}} for fitting an adaptive mixture of

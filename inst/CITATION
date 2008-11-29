@@ -13,11 +13,8 @@ citEntry(entry = "manual",
 	 url = "http://cran.at.r-project.org/web/packages/AdMit/index.html",
 	 textVersion =
          paste("David Ardia, Lennart F. Hoogerheide and ",
-               "Herman K. van Dijk (", year,"). The 'AdMit' Package: Adaptive Mixture of Student-t Distributions. ", vers, ".", sep=""),
-         header = "to cite the 'AdMit' package use:"
+               "Herman K. van Dijk (", year,"). The 'AdMit' Package: Adaptive Mixture of Student-t Distributions. ", vers, ".", sep="")
 )
-
-citHeader("other useful references")
 
 citEntry(entry = "misc",
 	 title = "Adaptive Mixture of {Student-t} Distributions as a Flexible Candidate Distribution for
@@ -26,14 +23,41 @@ citEntry(entry = "misc",
                              person("Lennart","Hoogerheide","F."),
                              person("Herman","van Dijk","K.")),
          year = 2008,
-         url = "http://www.tinbergen.nl/",
-	 institution = "Tinbergen and Econometric Institutes, Erasmus University Rotterdam (NL)",
+         url = "http://www.tinbergen.nl/discussionpapers/08062.pdf",
+         note = "Tinbergen Institute discussion paper 2008-062/4",
 	 textVersion =
-         paste("David Ardia, Lennart F. Hoogerheide and ",
-               "Herman K. van Dijk (2008). Adaptive Mixture of Student-t", 
+         paste("David Ardia, Lennart F. Hoogerheide and",
+               "Herman K. van Dijk (2008). Adaptive Mixture of Student-t",
                "Distribution as a Flexible Candidate Distribution for Efficient Simulation:",
-               "The R package 'AdMit'. Working paper, Tinbergen and Econometric Institutes,",
-               "Erasmus University Rotterdam (NL).")
+               "The R package 'AdMit'. Tinbergen Institute discussion paper 2008-062/4.")
+)
+
+citEntry(entry = "misc",
+	 title = "The {AdMit} Package",
+	 author = personList(person("David","Ardia"),
+                             person("Lennart","Hoogerheide","F."),
+                             person("Herman","van Dijk","K.")),
+         year = 2008,
+         url = "http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf",
+         note = "Econometric Institute report 2008-17",
+	 textVersion =
+         paste("David Ardia, Lennart F. Hoogerheide and",
+               "Herman K. van Dijk (2008). The 'AdMit' Package.",
+               "Econometric Institute report 2008-17.")
+)
+
+citEntry(entry = "article",
+         title = "A Note on Bivariate Distributions That Are Conditionally Normal",
+         author = personList(person("Andrew","Gelman"),
+                             person("Meng","Xiao-Li")),
+         journal = "The American Statistician",
+         volume = "45",
+         number = "2",
+         year = "1991",
+         pages = "125--126",
+         textVersion = 
+         paste("Andrew Gelman and Xiao-Li Meng (1991). A Note on Bivariate Distributions That Are",
+               "Conditionally Normal. The American Statistician 45(2), pp.125-126.")
 )
 
 citEntry(entry = "phdthesis",
@@ -64,7 +88,7 @@ citEntry(entry = "article",
          textVersion = 
          paste("Lennart F. Hoogerheide, Johan F. Kaashoek and Herman K. van Dijk (2007). On the Shape of",
                "Posterior Densities and Credible Sets in Instrumental Variable Regression Models with",
-               "Reduced Rank: An Application of Flexible Sampling Methods using Neural Networks. ",
+               "Reduced Rank: An Application of Flexible Sampling Methods using Neural Networks.",
                "Journal of Econometrics 139(1), pp.154-180. DOI: 10.1016/j.jeconom.2006.06.009.")
 )
 
@@ -75,9 +99,9 @@ citEntry(entry = "misc",
                              person("Herman","van Dijk","K.")),
          year = "2008",
          url = "http://www.tinbergen.nl/discussionpapers/08036.pdf",
-         note = "Tinbergen Institute report 08-036/4",
+         note = "Tinbergen Institute discussion paper 2008-036/4",
          textVersion = 
          paste("Lennart F. Hoogerheide and Herman K. van Dijk (2007). Possibly Ill-Behaved Posteriors",
                "in Econometric Models: On the Connection  between Model Structures, Non-elliptical Credible",
- 	       "Sets and Neural Network Simulation Techniques. Tinbergen Institute report 08-036/4.")
+ 	       "Sets and Neural Network Simulation Techniques. Tinbergen Institute discussion paper 2008-036/4.")
 )

@@ -20,7 +20,8 @@ AdMitMH(N=1e5, KERNEL, mit=list(), ...)
     argument should be a matrix and its output a vector). Moreover, the function must contain
     the logical argument \code{log}. If \code{log=TRUE}, the function
     returns (natural) logarithm values of kernel function. \code{NA}
-    and \code{NaN} values are not allowed.}
+    and \code{NaN} values are not allowed. (See the function
+    \code{\link{AdMit}} for examples of \code{KERNEL} implementation.)}
   \item{mit}{list containing information on the mixture approximation (see *Details*).}
   \item{\ldots}{further arguments to be passed to \code{KERNEL}.}
 }
@@ -56,17 +57,23 @@ AdMitMH(N=1e5, KERNEL, mit=list(), ...)
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide and van Dijk (2008). \url{http://www.tinbergen.nl/}
+  can be found in Ardia, Hoogerheide and van Dijk (2008a,b). See also
+  the file \file{AdMitJSS.R} in the package's folder.
 
   Further information on the Metropolis-Hastings algorithm can be found
   in Chib and Greenberg (1995) and Koop (2003).
 }
 \author{David Ardia <\email{david.ardia@unifr.ch}>}
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008) `Adaptive
-  mixture of Student-t distributions as a flexible candidate distribution for efficient 
-  simulation: The R package AdMit', \emph{Working
-    paper}, Econometric Institute, Erasmus University Rotterdam (NL). \url{URLLINK}
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
+  mixture of Student-t distributions as a flexible candidate
+  distribution for efficient simulation: The R package AdMit',
+  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
+  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
+
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit package', 
+  \emph{Econometric Institute report} \bold{2008-17}.
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
   
   Chib, S., Greenberg, E. (1995) `Understanding the Metropolis-Hasting Algorithm', \emph{The 
     American Statistician} \bold{49}(4), pp.327--335.
@@ -80,10 +87,10 @@ AdMitMH(N=1e5, KERNEL, mit=list(), ...)
   \code{\link{AdMit}} for fitting
   an adaptive mixture of Student-t distributions to a target density
   through its \code{KERNEL} function; the package coda for MCMC output
-  analysis (the package is loaded automatically with the package AdMit).
+  analysis.
 }
 \examples{%
-  ## Gelman and Meng (2001) kernel function
+  ## Gelman and Meng (1991) kernel function
   'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
     {
       if (is.vector(x))
@@ -106,6 +113,7 @@ AdMitMH(N=1e5, KERNEL, mit=list(), ...)
 
   ## Use functions provided by the package coda to obtain
   ## quantities of interest for the density whose kernel is 'GelmanMeng'
+  library(coda)
   draws <- as.mcmc(outAdMitMH$draws[1001:1e5,])
   colnames(draws) <- c("X1","X2")
   summary(draws)

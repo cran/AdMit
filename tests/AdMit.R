@@ -8,7 +8,7 @@
 options(digits=4, max.print=40)
 library(AdMit)
 
-## Gelman and Meng (2001) kernel function
+## Gelman and Meng (1991) kernel function
 'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
   {
     if (is.vector(x))
@@ -21,7 +21,7 @@ library(AdMit)
   }
 wait()
 
-## Contour plot of the Gelman and Meng (2001) kernel function.
+## Contour plot of the Gelman and Meng (1991) kernel function.
 'PlotGelmanMeng' <- function(x1, x2)
   {
     GelmanMeng(cbind(x1,x2), log=FALSE)
@@ -33,7 +33,7 @@ contour(x1, x2, z, nlevel=20, las=1, lwd=2, col=rainbow(20),
 abline(a=0, b=1, lty='dotted')
 wait()
 
-## Use AdMit to the Gelman and Meng (2001) kernel function.
+## Use AdMit to the Gelman and Meng (1991) kernel function.
 set.seed(1234)
 outAdMit <- AdMit(GelmanMeng, mu0=c(0,0.1))
 print(outAdMit)
@@ -101,6 +101,7 @@ print(outAdMitMH)
 wait()
 
 ## Use some functions of the package 'coda' to obtain summaries from the MCMC output.
+library(coda)
 draws <- as.mcmc(outAdMitMH$draws[1001:1e5,])
 colnames(draws) <- c("X1","X2")
 summary(draws)$stat

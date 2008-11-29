@@ -16,7 +16,8 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
     argument should be a matrix and its output a vector). Moreover, the function must contain
     the logical argument \code{log}. If \code{log=TRUE}, the function
     returns (natural) logarithm values of the kernel function. \code{NA} and
-    \code{NaN} values are not allowed.}
+    \code{NaN} values are not allowed. (See *Details* for examples
+    of \code{KERNEL} implementation.)}
   \item{mu0}{initial value in the first stage optimization (for the location of
     the first Student-t component) in the adaptive mixture, or
     location of the first Student-t component if \code{Sigma0} is not \code{NULL}.}
@@ -27,6 +28,100 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   \item{\ldots}{further arguments to be passed to \code{KERNEL}.}
 }
 \details{%
+  The argument \code{KERNEL} is the kernel function of the target
+  density, and it should be vectorized for speed purposes.
+
+  As a first example, consider the kernel function proposed by Gelman-Meng (1991):
+  \deqn{
+    k(x_1,x_2) = \exp\left( -\frac{1}{2} [A x_1^2 x_2^2 + x_1^2 + x_2^2
+    - 2 B x_1 x_2 - 2 C_1 x_1 - 2 C_2 x_2] \right)
+  }{
+    k(x1,x2) = exp( 0.5*[A*x1^2*x2^2 + x1^2 + x2^2
+    - 2*B*x1*x2 - 2*C1*x1 - 2*C2*x2] )
+  }
+  where commonly used values
+  are \eqn{A=1}, \eqn{B=0}, \eqn{C_1=3}{C1=3} and \eqn{C_2=3}{C2=3}.
+
+  A vectorized implementation of this function might be:  
+  \preformatted{
+    'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
+    {
+      if (is.vector(x))
+        x <- matrix(x, nrow=1)
+      r <- -.5 * (A*x[,1]^2*x[,2]^2 + x[,1]^2 + x[,2]^2
+                  - 2*B*x[,1]*x[,2] - 2*C1*x[,1] - 2*C2*x[,2])
+      if (!log)
+        r <- exp(r)
+      as.vector(r)
+    }
+  }
+  This way, we may supply a point \eqn{(x_1,x_2)}{(x1,x2)}
+  for \code{x} and the function will output a single value (i.e., the kernel
+  estimated at this point). But the function is vectorized, in the sense
+  that we may supply a \eqn{(N \times 2)}{Nx2} matrix
+  of values for \code{x}, where rows of \code{x} are
+  points \eqn{(x_1,x_2)}{(x1,x2)} and the output will be a vector of
+  length \eqn{N}, containing the kernel values for these points.
+  Since the \code{AdMit} procedure evaluates \code{KERNEL} for a
+  large number of points, a vectorized implementation is important. Note
+  also the additional argument \code{log=TRUE} which is used for
+  numerical stability.
+
+  As a second example, consider the following (simple) econometric model:
+  \deqn{
+    y_t \sim \, i.i.d. \, N(\mu,\sigma^2) \quad t=1,\ldots,T
+  }{
+    y_t ~ i.i.d. N(mu,sigma^2) t=1,...,T
+  }
+  where \eqn{\mu}{mu} is the mean value and \eqn{\sigma}{sigma} is the
+  standard deviation. Our purpose is to estimate
+  \eqn{\theta = (\mu,\sigma)}{theta=(mu,sigma)} within a Bayesian
+  framework, based on a vector \eqn{y} of \eqn{T} observations; the
+  kernel thus consists of the product of the
+  prior and the likelihood function. As previously mentioned, the
+  kernel function should be vectorized, i.e., treat a \eqn{(N \times 2)}{(Nx2)} matrix of points
+  \eqn{\theta}{theta} for which the kernel will be evaluated.
+  Using the common (Jeffreys) prior \eqn{p(\theta) = \frac{1}{\sigma}}{p(theta)=1/sigma}
+  for \eqn{\sigma > 0}{sigma>0}, a vectorized implementation of the
+  kernel function might be: 
+   \preformatted{
+     'KERNEL' <- function(theta, y, log=TRUE)
+     {
+       if (is.vector(theta))
+         theta <- matrix(theta, nrow=1)
+       
+       ## sub function which returns the log-kernel for a given
+       ## thetai value (i.e., a given row of theta)
+       'KERNEL_sub' <- function(thetai)
+       {
+	 if (thetai[2]>0) ## check if sigma>0
+	 { ## if yes, compute the log-kernel at thetai
+	   r <- - log(thetai[2])
+	        + sum(dnorm(y, thetai[1], thetai[2], TRUE))
+	 }
+	 else
+	 { ## if no, returns -Infinity
+	   r <- -Inf
+	 }
+	 as.numeric(r)
+       }
+
+       ## 'apply' on the rows of theta (faster than a for loop)
+       r <- apply(theta, 1, KERNEL_sub)
+       if (!log)
+         r <- exp(r)
+       as.numeric(r)
+     }
+   }
+
+   Since this kernel function also depends on the vector \eqn{y}, it
+   must be passed to \code{KERNEL} in the \code{AdMit} function. This is
+   achieved via the argument \eqn{\ldots}{...}, i.e., \code{AdMit(KERNEL, mu=c(0,1), y=y)}.
+   
+   To gain even more speed, implementation of \code{KERNEL} might rely on C or Fortran
+   code using the functions \code{.C} and \code{.Fortran}. An example is
+   provided in the file \file{AdMitJSS.R} in the package's folder.
+
   The argument \code{control} is a list that can supply any of
   the following components:
   
@@ -115,12 +210,13 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide and van Dijk (2008).
+  can be found in Ardia, Hoogerheide and van Dijk (2008a,b). See also
+  the file \file{AdMit\_JSS.R} in the package's folder.
 
   Further details on the core algorithm are given in
   Hoogerheide (2006), Hoogerheide, Kaashoek, van Dijk (2007) and
   Hoogerheide, van Dijk (2008).
-  
+
   The adaptive mixture \code{mit} returned by the function \code{AdMit} is used by the
   function \code{\link{AdMitIS}} to perform importance sampling using
   \code{mit} as the importance density or by the function \code{\link{AdMitMH}} to perform
@@ -132,10 +228,19 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   Lennart F. Hoogerheide and Herman K. van Dijk for the \code{AdMit} algorithm.
 }
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008) `Adaptive
-  mixture of Student-t distributions as a flexible candidate distribution for efficient 
-  simulation: The R package AdMit', \emph{Working
-    paper}, Econometric Institute, Erasmus University Rotterdam (NL). \url{http://www.tinbergen.nl/}
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
+  Mixture of Student-t Distributions as a Flexible Candidate
+  Distribution for Efficient Simulation: The R Package AdMit',
+  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
+  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
+
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit Package',
+  \emph{Econometric Institute report} \bold{2008-17}.
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
+
+  Gelman, A., Meng, X.-L. (1991) `A Note on Bivariate Distributions That
+  Are Conditionally Normal', \emph{The American Statistician} \bold{45}(2),
+  pp.125--126.
 
   Hoogerheide, L.F. (2006) \emph{Essays on Neural Network Sampling Methods and
   Instrumental Variables}, PhD thesis, Tinbergen Institute, Erasmus University
@@ -144,14 +249,14 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
 
   Hoogerheide, L.F., Kaashoek, J.F., van Dijk, H.K. (2007) `On the Shape of Posterior
   Densities and Credible Sets in Instrumental Variable Regression Models with Reduced
-  Rank: An Application of Flexible Sampling Methods using Neural Networks', \emph{Journal of
-    Econometrics} \bold{139}(1), pp.154--180. DOI:
-  10.1016/j.jeconom.2006.06.009.
+  Rank: An Application of Flexible Sampling Methods using Neural Networks', 
+  \emph{Journal of Econometrics} \bold{139}(1), pp.154--180. DOI: 10.1016/j.jeconom.2006.06.009.
 
   Hoogerheide, L.F., van Dijk, H.K. (2008) `Possibly Ill-Behaved
   Posteriors in Econometric Models: On the Connection between Model
   Structures, Non-elliptical Credible Sets and Neural Network
-  Simulation Techniques', \emph{Tinbergen Institute report} \bold{08-036/4}. \url{http://www.tinbergen.nl/discussionpapers/08036.pdf}
+  Simulation Techniques', \emph{Tinbergen Institute discussion paper}
+  \bold{2008-036/4}. \url{http://www.tinbergen.nl/discussionpapers/08036.pdf}
 }
 \seealso{%
   \code{\link{AdMitIS}} for importance sampling using an
@@ -161,7 +266,7 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   the candidate density.
 }
 \examples{%
-  ## Gelman and Meng (2001) kernel function
+  ## Gelman and Meng (1991) kernel function
   'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
     {
       if (is.vector(x))
@@ -182,6 +287,41 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   ## the modes and the scale matrices)
   set.seed(1234)
   outAdMit <- AdMit(GelmanMeng, mu0=c(0,0.1), control=list(IS=TRUE))
+  print(outAdMit)
+
+  ## Simple econometric model: y_t ~ i.i.d. N(mu,sigma^2)
+  ## Jeffreys prior p(theta) prop 1/sigma for sigma > 0
+  'KERNEL' <- function(theta, y, log=TRUE)
+    {
+      if (is.vector(theta))
+        theta <- matrix(theta, nrow=1)
+
+      'KERNEL_sub' <- function(thetai)
+        {
+          if (thetai[2]>0)
+            {
+              r <- - log(thetai[2]) + sum(dnorm(y, thetai[1], thetai[2], TRUE))
+            }
+          else
+            {
+              r <- -Inf
+            }
+          as.numeric(r)
+        }
+      r <- apply(theta, 1, KERNEL_sub)
+      if (!log)
+        r <- exp(r)
+      as.numeric(r)
+    }
+
+  ## Generate 20 draws for mu = 1 and sigma = 0.5
+  set.seed(1234)
+  y <- rnorm(20, 2, 0.5)
+
+  ## Run AdMit (with default values); pass the vector y
+  ## of observations using the ... argument of AdMit and
+  ## print steps of the fitting process
+  outAdMit <- AdMit(KERNEL, mu0=c(1,1), y=y, control=list(trace=TRUE))
   print(outAdMit)
 }
 \keyword{htest}
