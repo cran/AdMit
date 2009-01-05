@@ -8,13 +8,13 @@
   Student-t distributions to approximate a target density through its
   kernel function}
 \usage{
-AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
+AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
 }
 \arguments{%
   \item{KERNEL}{kernel function of the target density on which the adaptive mixture is fitted. This
     function should be vectorized for speed purposes (i.e., its first
     argument should be a matrix and its output a vector). Moreover, the function must contain
-    the logical argument \code{log}. If \code{log=TRUE}, the function
+    the logical argument \code{log}. If \code{log = TRUE}, the function
     returns (natural) logarithm values of the kernel function. \code{NA} and
     \code{NaN} values are not allowed. (See *Details* for examples
     of \code{KERNEL} implementation.)}
@@ -22,7 +22,7 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
     the first Student-t component) in the adaptive mixture, or
     location of the first Student-t component if \code{Sigma0} is not \code{NULL}.}
   \item{Sigma0}{scale matrix of the first Student-t component (square, symmetric and positive definite). Default:
-    \code{Sigma0=NULL}, i.e., the scale matrix of the first Student-t
+    \code{Sigma0 = NULL}, i.e., the scale matrix of the first Student-t
     component is estimated by the function \code{AdMit}.}
   \item{control}{control parameters (see *Details*).}
   \item{\ldots}{further arguments to be passed to \code{KERNEL}.}
@@ -42,14 +42,14 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   where commonly used values
   are \eqn{A=1}, \eqn{B=0}, \eqn{C_1=3}{C1=3} and \eqn{C_2=3}{C2=3}.
 
-  A vectorized implementation of this function might be:  
+  A vectorized implementation of this function might be:
   \preformatted{
-    'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
+    GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
     {
       if (is.vector(x))
-        x <- matrix(x, nrow=1)
-      r <- -.5 * (A*x[,1]^2*x[,2]^2 + x[,1]^2 + x[,2]^2
-                  - 2*B*x[,1]*x[,2] - 2*C1*x[,1] - 2*C2*x[,2])
+        x <- matrix(x, nrow = 1)
+      r <- -.5 * (A * x[,1]^2 * x[,2]^2 + x[,1]^2 + x[,2]^2
+                - 2 * B * x[,1] * x[,2] - 2 * C1 * x[,1] - 2 * C2 * x[,2])
       if (!log)
         r <- exp(r)
       as.vector(r)
@@ -64,7 +64,7 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   length \eqn{N}, containing the kernel values for these points.
   Since the \code{AdMit} procedure evaluates \code{KERNEL} for a
   large number of points, a vectorized implementation is important. Note
-  also the additional argument \code{log=TRUE} which is used for
+  also the additional argument \code{log = TRUE} which is used for
   numerical stability.
 
   As a second example, consider the following (simple) econometric model:
@@ -83,21 +83,21 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   \eqn{\theta}{theta} for which the kernel will be evaluated.
   Using the common (Jeffreys) prior \eqn{p(\theta) = \frac{1}{\sigma}}{p(theta)=1/sigma}
   for \eqn{\sigma > 0}{sigma>0}, a vectorized implementation of the
-  kernel function might be: 
+  kernel function might be:
    \preformatted{
-     'KERNEL' <- function(theta, y, log=TRUE)
+     KERNEL <- function(theta, y, log = TRUE)
      {
        if (is.vector(theta))
-         theta <- matrix(theta, nrow=1)
-       
+         theta <- matrix(theta, nrow = 1)
+
        ## sub function which returns the log-kernel for a given
        ## thetai value (i.e., a given row of theta)
-       'KERNEL_sub' <- function(thetai)
+       KERNEL_sub <- function(thetai)
        {
-	 if (thetai[2]>0) ## check if sigma>0
+         if (thetai[2] > 0) ## check if sigma>0
 	 { ## if yes, compute the log-kernel at thetai
-	   r <- - log(thetai[2])
-	        + sum(dnorm(y, thetai[1], thetai[2], TRUE))
+           r <- - log(thetai[2])
+	         + sum(dnorm(y, thetai[1], thetai[2], TRUE))
 	 }
 	 else
 	 { ## if no, returns -Infinity
@@ -116,7 +116,7 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
 
    Since this kernel function also depends on the vector \eqn{y}, it
    must be passed to \code{KERNEL} in the \code{AdMit} function. This is
-   achieved via the argument \eqn{\ldots}{...}, i.e., \code{AdMit(KERNEL, mu=c(0,1), y=y)}.
+   achieved via the argument \eqn{\ldots}{...}, i.e., \code{AdMit(KERNEL, mu = c(0, 1), y = y)}.
    
    To gain even more speed, implementation of \code{KERNEL} might rely on C or Fortran
    code using the functions \code{.C} and \code{.Fortran}. An example is
@@ -127,50 +127,50 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   
   \describe{%
     \item{\code{Ns}}{number of draws used in the evaluation of the
-      importance sampling weights (integer number not smaller than 100). Default: \code{Ns=1e5}.}
+      importance sampling weights (integer number not smaller than 100). Default: \code{Ns = 1e5}.}
     \item{\code{Np}}{number of draws used in the optimization of the mixing
       probabilities (integer number not smaller than 100 and not larger
-      than \code{Ns}). Default: \code{Np=1e3}.}
+      than \code{Ns}). Default: \code{Np = 1e3}.}
     \item{\code{Hmax}}{maximum number of Student-t components in the
-      adaptive mixture (integer number not smaller than one). Default: \code{Hmax=10}.}
+      adaptive mixture (integer number not smaller than one). Default: \code{Hmax = 10}.}
     \item{\code{df}}{degrees of freedom parameter of the
-      Student-t components (real number not smaller than one). Default: \code{df=1}.}
+      Student-t components (real number not smaller than one). Default: \code{df = 1}.}
     \item{\code{CVtol}}{tolerance for the relative change of the coefficient of
       variation (real number in [0,1]). The
       adaptive algorithm stops if the new
       component leads to a relative change in the coefficient of
       variation that is smaller or equal than
-      \code{CVtol}. Default: \code{CVtol=0.1}, i.e., 10\%.}
+      \code{CVtol}. Default: \code{CVtol = 0.1}, i.e., 10\%.}
     \item{\code{weightNC}}{weight assigned to the new
       Student-t component of the adaptive mixture as
       a starting value in the optimization of the mixing probabilities
-      (real number in [0,1]). Default: \code{weightNC=0.1}, i.e., 10\%.}
+      (real number in [0,1]). Default: \code{weightNC = 0.1}, i.e., 10\%.}
     \item{\code{trace}}{tracing information on
       the adaptive fitting procedure (logical). Default:
-      \code{trace=FALSE}, i.e., no tracing information.}
+      \code{trace = FALSE}, i.e., no tracing information.}
     \item{\code{IS}}{should importance sampling be used to estimate the
-      mode and the scale matrix of the Student-t components (logical). Default: \code{IS=FALSE},
+      mode and the scale matrix of the Student-t components (logical). Default: \code{IS = FALSE},
       i.e., use numerical optimization instead.}
     \item{\code{ISpercent}}{vector of percentage(s) of largest weights used to
       estimate the mode and the scale matrix of the Student-t
       components of the adaptive mixture by importance
       sampling (real number(s) in [0,1]). Default:
-      \code{ISpercent=c(0.05, 0.15, 0.3)}, i.e., 5\%, 15\% and 30\%.}
+      \code{ISpercent = c(0.05, 0.15, 0.3)}, i.e., 5\%, 15\% and 30\%.}
     \item{\code{ISscale}}{vector of scaling factor(s) used to rescale the
       scale matrix of the mixture components (real positive numbers).
-      Default: \code{ISscale=c(1,0.25,4)}.}
+      Default: \code{ISscale = c(1, 0.25, 4)}.}
     \item{\code{trace.mu}}{Tracing information on
       the progress in the optimization of the mode of the mixture
       components (non-negative integer number). Higher values
       may produce more tracing information (see the source code
       of the function \code{\link{optim}} for further details).
-      Default: \code{trace.mu=0}, i.e., no tracing information.}
+      Default: \code{trace.mu = 0}, i.e., no tracing information.}
     \item{\code{maxit.mu}}{maximum number of iterations used
       in the optimization of the modes of the mixture components
-      (positive integer). Default: \code{maxit.mu=500}.}
+      (positive integer). Default: \code{maxit.mu = 500}.}
     \item{\code{reltol.mu}}{relative convergence tolerance
       used in the optimization of the modes of the mixture components
-      (real number in [0,1]). Default: \code{reltol.mu=1e-8}.}
+      (real number in [0,1]). Default: \code{reltol.mu = 1e-8}.}
     \item{\code{trace.p}, \code{maxit.p}, \code{reltol.p}}{the same as for
       the arguments above, but for the optimization of the mixing
       probabilities of the mixture components.}
@@ -210,8 +210,9 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide and van Dijk (2008a,b). See also
-  the file \file{AdMit\_JSS.R} in the package's folder.
+  can be found in Ardia, Hoogerheide, van Dijk (2008, 2009). See also
+  the package vignette by typing \code{vignette("AdMit")} and the
+  files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
 
   Further details on the core algorithm are given in
   Hoogerheide (2006), Hoogerheide, Kaashoek, van Dijk (2007) and
@@ -222,41 +223,47 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   \code{mit} as the importance density or by the function \code{\link{AdMitMH}} to perform
   independence chain Metropolis-Hastings sampling using \code{mit} as the
   candidate density.
+
+  Please cite the package in publications. Use \code{citation("AdMit")}.
 }
 \author{%
   David Ardia <\email{david.ardia@unifr.ch}> for the \R port,
   Lennart F. Hoogerheide and Herman K. van Dijk for the \code{AdMit} algorithm.
 }
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
-  Mixture of Student-t Distributions as a Flexible Candidate
-  Distribution for Efficient Simulation: The R Package AdMit',
-  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
-  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
-
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit Package',
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008). 
+  The AdMit Package.
   \emph{Econometric Institute report} \bold{2008-17}.
-  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in Rnews)
 
-  Gelman, A., Meng, X.-L. (1991) `A Note on Bivariate Distributions That
-  Are Conditionally Normal', \emph{The American Statistician} \bold{45}(2),
-  pp.125--126.
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009). 
+  Adaptive Mixture of Student-t Distributions as a Flexible Candidate
+  Distribution for Efficient Simulation: The R Package AdMit.
+  \emph{Journal of Statistical Software} \bold{29}(3).
+  \url{http://www.jstatsoft.org/v29/i03/}
 
-  Hoogerheide, L.F. (2006) \emph{Essays on Neural Network Sampling Methods and
-  Instrumental Variables}, PhD thesis, Tinbergen Institute, Erasmus University
-  Rotterdam (NL). ISBN: 9051708261. (Book nr. 379 of the Tinbergen Institute
-  Research Series.)
+  Gelman, A., Meng, X.-L. (1991). 
+  A Note on Bivariate Distributions That Are Conditionally Normal. 
+  \emph{The American Statistician} \bold{45}(2), pp.125--126.
 
-  Hoogerheide, L.F., Kaashoek, J.F., van Dijk, H.K. (2007) `On the Shape of Posterior
-  Densities and Credible Sets in Instrumental Variable Regression Models with Reduced
-  Rank: An Application of Flexible Sampling Methods using Neural Networks', 
-  \emph{Journal of Econometrics} \bold{139}(1), pp.154--180. DOI: 10.1016/j.jeconom.2006.06.009.
+  Hoogerheide, L.F. (2006). 
+  \emph{Essays on Neural Network Sampling Methods and Instrumental Variables}. 
+  PhD thesis, Tinbergen Institute, Erasmus University Rotterdam (NL). 
+  ISBN: 9051708261. 
+  (Book nr. 379 of the Tinbergen Institute Research Series.)
 
-  Hoogerheide, L.F., van Dijk, H.K. (2008) `Possibly Ill-Behaved
-  Posteriors in Econometric Models: On the Connection between Model
+  Hoogerheide, L.F., Kaashoek, J.F., van Dijk, H.K. (2007). 
+  On the Shape of Posterior Densities and Credible Sets in Instrumental Variable Regression Models with Reduced
+  Rank: An Application of Flexible Sampling Methods using Neural Networks.
+  \emph{Journal of Econometrics} \bold{139}(1), pp.154--180. 
+  doi: 10.1016/j.jeconom.2006.06.009.
+
+  Hoogerheide, L.F., van Dijk, H.K. (2008). 
+  Possibly Ill-Behaved Posteriors in Econometric Models: On the Connection between Model
   Structures, Non-elliptical Credible Sets and Neural Network
-  Simulation Techniques', \emph{Tinbergen Institute discussion paper}
-  \bold{2008-036/4}. \url{http://www.tinbergen.nl/discussionpapers/08036.pdf}
+  Simulation Techniques. 
+  \emph{Tinbergen Institute discussion paper} \bold{2008-036/4}. 
+  \url{http://www.tinbergen.nl/discussionpapers/08036.pdf}
 }
 \seealso{%
   \code{\link{AdMitIS}} for importance sampling using an
@@ -267,52 +274,54 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
 }
 \examples{%
   ## Gelman and Meng (1991) kernel function
-  'GelmanMeng' <- function(x, A=1, B=0, C1=3, C2=3, log=TRUE)
-    {
-      if (is.vector(x))
-        x <- matrix(x, nrow=1)
-      r <- -.5 * (A*x[,1]^2*x[,2]^2 + x[,1]^2 + x[,2]^2
-                  - 2*B*x[,1]*x[,2] - 2*C1*x[,1] - 2*C2*x[,2])
-      if (!log)
-        r <- exp(r)
-      as.vector(r)
-    }
+  GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
+  {
+    if (is.vector(x))
+      x <- matrix(x, nrow = 1)
+    r <- -.5 * (A * x[,1]^2 * x[,2]^2 + x[,1]^2 + x[,2]^2
+              - 2 * B * x[,1] * x[,2] - 2 * C1 * x[,1] - 2 * C2 * x[,2])
+    if (!log)
+      r <- exp(r)
+    as.vector(r)
+  }
 
   ## Run AdMit (with default values)
   set.seed(1234)
-  outAdMit <- AdMit(GelmanMeng, mu0=c(0,0.1))
+  outAdMit <- AdMit(GelmanMeng, mu0 = c(0.0, 0.1))
   print(outAdMit)
 
   ## Run AdMit (using importance sampling to estimate
   ## the modes and the scale matrices)
   set.seed(1234)
-  outAdMit <- AdMit(GelmanMeng, mu0=c(0,0.1), control=list(IS=TRUE))
+  outAdMit <- AdMit(KERNEL = GelmanMeng, 
+                    mu0 = c(0.0, 0.1), 
+                    control = list(IS = TRUE))
   print(outAdMit)
 
   ## Simple econometric model: y_t ~ i.i.d. N(mu,sigma^2)
   ## Jeffreys prior p(theta) prop 1/sigma for sigma > 0
-  'KERNEL' <- function(theta, y, log=TRUE)
-    {
-      if (is.vector(theta))
-        theta <- matrix(theta, nrow=1)
+  KERNEL <- function(theta, y, log = TRUE)
+  {
+    if (is.vector(theta))
+      theta <- matrix(theta, nrow = 1)
 
-      'KERNEL_sub' <- function(thetai)
+    KERNEL_sub <- function(thetai)
+    {
+      if (thetai[2] > 0)
         {
-          if (thetai[2]>0)
-            {
-              r <- - log(thetai[2]) + sum(dnorm(y, thetai[1], thetai[2], TRUE))
-            }
-          else
-            {
-              r <- -Inf
-            }
-          as.numeric(r)
+          r <- - log(thetai[2]) + sum(dnorm(y, thetai[1], thetai[2], TRUE))
         }
-      r <- apply(theta, 1, KERNEL_sub)
-      if (!log)
-        r <- exp(r)
+      else
+        {
+          r <- -Inf
+        }
       as.numeric(r)
     }
+    r <- apply(theta, 1, KERNEL_sub)
+    if (!log)
+      r <- exp(r)
+    as.numeric(r)
+  }
 
   ## Generate 20 draws for mu = 1 and sigma = 0.5
   set.seed(1234)
@@ -321,7 +330,9 @@ AdMit(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   ## Run AdMit (with default values); pass the vector y
   ## of observations using the ... argument of AdMit and
   ## print steps of the fitting process
-  outAdMit <- AdMit(KERNEL, mu0=c(1,1), y=y, control=list(trace=TRUE))
+  outAdMit <- AdMit(KERNEL = KERNEL, 
+                    mu0 = c(1.0, 1.0), 
+                    y = y, control = list(trace = TRUE))
   print(outAdMit)
 }
 \keyword{htest}

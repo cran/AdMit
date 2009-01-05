@@ -31,7 +31,7 @@
 ## $Sigma     : [Hxk^2 matrix] of scale matrices (in rows)
 ## $df        : [integer>0] degrees of freedom
 ## summary    : [data.frame] containing information on optimization algorithm, time and CV over fitting process
-## __20080526__
+## __20081223__
 'AdMit' <- function(KERNEL, mu0, Sigma0=NULL, control=list(), ...)
   {
     if (missing(KERNEL))
@@ -158,7 +158,7 @@
               }
             tmptmpoptmu <- unlist(tmpoptmu)
             pos <- tmptmpoptmu[names(tmptmpoptmu)=="method"]!="IS"
-            if (length(pos)>0) ## if at least one has converged
+            if (any(pos)) ## if at least one has converged
               {                
                 v <- tmptmpoptmu[names(tmptmpoptmu)=="value"][pos]
                 optmu <- tmpoptmu[[which.max(v)]]

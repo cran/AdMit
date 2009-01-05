@@ -17,8 +17,8 @@ rMit(N=1, mit=list())
   \item{theta}{matrix (of size \eqn{N \times d}{Nxd}, where
     \eqn{N,d \geq 1}{N,d>=1}) of real values.}
   \item{mit}{list containing information on the mixture approximation (see *Details*).}
-  \item{log}{logical; if \code{log=TRUE}, returns (natural) logarithm
-    values of the density. Default: \code{log=TRUE}.}
+  \item{log}{logical; if \code{log = TRUE}, returns (natural) logarithm
+    values of the density. Default: \code{log = TRUE}.}
   \item{N}{number of draws (positive integer number).}
 }
 \details{%
@@ -43,7 +43,7 @@ rMit(N=1, mit=list())
   \eqn{d (\geq 1)}{d (>=1)} is
   the dimension of the mixture approximation. Typically,
   \code{mit} is estimated by the function \code{\link{AdMit}}. If the
-  \code{mit=list()}, a Student-t distribution located
+  \code{mit = list()}, a Student-t distribution located
   at \code{rep(0,d)} with scale matrix \code{diag(d)} and one
   degree of freedom parameter is used.
 }
@@ -54,20 +54,24 @@ rMit(N=1, mit=list())
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide, van Dijk (2008a,b). See also
-  the file \file{AdMitJSS.R} in the package's folder.
+  can be found in Ardia, Hoogerheide, van Dijk (2008, 2009). See also
+  the package vignette by typing \code{vignette("AdMit")} and the
+  files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
+  
+  Please cite the package in publications. Use \code{citation("AdMit")}.
 }
 \author{David Ardia <\email{david.ardia@unifr.ch}>}
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008a) `Adaptive
-  mixture of Student-t distributions as a flexible candidate
-  distribution for efficient simulation: The R package AdMit',
-  \emph{Tinbergen Institute discussion paper} \bold{2008-062/4}.
-  \url{http://www.tinbergen.nl/discussionpapers/08062.pdf}
-
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008b) `The AdMit package', 
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008). 
+  The AdMit Package.
   \emph{Econometric Institute report} \bold{2008-17}.
-  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf}
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in Rnews)
+
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009). 
+  Adaptive Mixture of Student-t Distributions as a Flexible Candidate
+  Distribution for Efficient Simulation: The R Package AdMit.
+  \emph{Journal of Statistical Software} \bold{29}(3).
+  \url{http://www.jstatsoft.org/v29/i03/}
 }
 \seealso{%
   \code{\link{AdMit}} for fitting an adaptive mixture of
@@ -80,51 +84,53 @@ rMit(N=1, mit=list())
 }
 \examples{%
   ## One dimensional two components mixture of Student-t distributions
-  mit <- list(p=c(.5,.5),
-              mu=matrix(c(-2,.5), 2, 1, byrow=TRUE),
-              Sigma=matrix(.1,2),
-              df=10)
+  mit <- list(p = c(0.5, 0.5),
+              mu = matrix(c(-2.0, 0.5), 2, 1, byrow = TRUE),
+              Sigma = matrix(0.1, 2),
+              df = 10)
   ## Generate draws from the mixture
-  hist(rMit(10000, mit=mit), nclass=100, freq=FALSE)
-  x <- seq(from=-5, to=5, by=.01)
+  hist(rMit(10000, mit = mit), nclass = 100, freq = FALSE)
+  x <- seq(from = -5.0, to = 5.0, by = 0.01)
   ## Add the density to the histogram
-  lines(x, dMit(x, mit=mit, log=FALSE), col='red', lwd=2)
+  lines(x, dMit(x, mit = mit, log = FALSE), col = "red", lwd = 2)
 
   ## Two dimensional (one component mixture) Student-t distribution
-  mit <- list(p=1,
-              mu=matrix(0,1,2),
-              Sigma=matrix(c(1,0,0,1),1,4),
-              df=10)
+  mit <- list(p = 1,
+              mu = matrix(0.0, 1.0, 2.0),
+              Sigma = matrix(c(1.0, 0.0, 0.0, 1.0), 1, 4),
+              df = 10)
   ## Function used to plot the mixture in two dimensions
-  'dMitPlot' <- function(x1, x2, mit=mit)
-    {
-       dMit(cbind(x1, x2), mit=mit, log=FALSE)
-    }
-  x1 <- x2 <- seq(from=-10, to=10, by=.1)
+  dMitPlot <- function(x1, x2, mit = mit)
+  {
+    dMit(cbind(x1, x2), mit = mit, log = FALSE)
+  }
+  x1 <- x2 <- seq(from = -10.0, to = 10.0, by = 0.1)
   thexlim <- theylim <- range(x1)
-  z <- outer(x1, x2, FUN=dMitPlot, mit=mit)
+  z <- outer(x1, x2, FUN = dMitPlot, mit = mit)
   ## Contour plot of the mixture
-  contour(x1, x2, z, nlevel=20, las=1, col=rainbow(20),
-          xlim=thexlim, ylim=theylim)
-  par(new=TRUE)
+  contour(x1, x2, z, nlevel = 20, las = 1, 
+          col = rainbow(20),
+          xlim = thexlim, ylim = theylim)
+  par(new = TRUE)
   ## Generate draws from the mixture
-  plot(rMit(10000, mit=mit), pch=20, cex=.3, xlim=thexlim,
-            ylim=theylim, col="red", las=1)
+  plot(rMit(10000, mit = mit), pch = 20, cex = 0.3, 
+            xlim = thexlim, ylim = theylim, col = "red", las = 1)
 
   ## Two dimensional three components mixture of Student-t distributions
-  mit <- list(p=c(.2,.3,.5),
-              mu=matrix(c(-5,-1,-3,5,1,2),3,2,byrow=TRUE),
-              Sigma=matrix(.5*c(1,1,1,0,0,0,0,0,0,1,1,1),3,4),
-              df=10)
-  x1 <- x2 <- seq(from=-10, to=10, by=.1)
+  mit <- list(p = c(0.2, 0.3, 0.5),
+              mu = matrix(c(-5.0, -1.0, -3.0, 5.0, 1.0, 2.0), 3, 2, byrow = TRUE),
+              Sigma = matrix(.5 * c(1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 
+                                    0.0, 0.0, 0.0, 1.0, 1.0, 1.0), 3, 4),
+              df = 10)
+  x1 <- x2 <- seq(from = -10.0, to = 10.0, by = 0.1)
   thexlim <- theylim <- range(x1)
-  z <- outer(x1, x2, FUN=dMitPlot, mit=mit)
+  z <- outer(x1, x2, FUN = dMitPlot, mit = mit)
   ## Contour plot of the mixture
-  contour(x1, x2, z, nlevel=20, las=1, col=rainbow(20),
-          xlim=thexlim, ylim=theylim)
-  par(new=TRUE)
+  contour(x1, x2, z, nlevel = 20, las = 1, col = rainbow(20),
+          xlim = thexlim, ylim = theylim)
+  par(new = TRUE)
   ## Generate random draws from the mixture
-  plot(rMit(10000, mit=mit), pch=20, cex=.3, xlim=thexlim,
-            ylim=theylim, col="red", las=1)
+  plot(rMit(10000, mit = mit), pch = 20, cex = 0.3, xlim = thexlim,
+            ylim = theylim, col = "red", las = 1)
 }
 \keyword{distribution}

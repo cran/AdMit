@@ -1,0 +1,44 @@
+Changes in Version 1-01.01
+
+  o change in AdMit.R to deal with convergence problems for simple cases.
+
+  o documentation and codes modified according to JSS style (thanks to Achim Zeilis for comments).
+
+  o creation of /doc folder with AdMitJSS.txt and AdMitRnews.txt files.
+
+  o package vignette added (in /doc).
+
+  o CITATION file simplified.
+  
+  o JSS paper accepted for publication.
+  
+  o Rnews paper accepted for publication.
+
+
+Changes in Version 1-00.04
+
+  o file AdMitJSS.txt containing the code of the JSS paper is part of the package.
+
+  o documentation of AdMit enhanced (explanations for KERNEL construction).
+
+  o add reference for Gelman-Meng.
+
+  o modify references in CITATION.
+
+  o new 'demo' code.
+
+  o 'coda' package is now Suggests.
+
+
+Changes in Version 1-00.03
+
+  o change the version in the function 'onLoad'.
+
+
+Changes in Version 1-00.02
+
+  o first version released.
+    
+Changes in Version 1-00.01
+
+  o previous versions were 'under construction' versions.

@@ -23,17 +23,17 @@
     lnw <- fn.w(theta, KERNEL=KERNEL, mit=mit, log=TRUE, ...)
     k <- ncol(mit$mu)
     
-    r <- .C('fnMH_C',
-            theta=as.double(as.vector(t(theta))),
-            N=as.integer(N),
-            k=as.integer(k),
-            lnw=as.double(lnw),
-            u=as.double(runif(N)),
-            draws=vector('double',N*k),
-            ns=as.integer(0),
-            PACKAGE='AdMit',
-            NAOK=TRUE,
-            DUP=FALSE)
+    r <- .C(name = 'fnMH_C',
+            theta = as.double(as.vector(t(theta))),
+            N = as.integer(N),
+            k = as.integer(k),
+            lnw = as.double(lnw),
+            u = as.double(runif(N)),
+            draws = vector('double',N*k),
+            ns = as.integer(0),
+            PACKAGE = 'AdMit',
+            NAOK = TRUE,
+            DUP = FALSE)
 
     draws <- matrix(r$draws, N, k, byrow=TRUE)
     dimnames(draws) <- list(1:N, paste("k", 1:k, sep=""))

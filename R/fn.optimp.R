@@ -23,17 +23,17 @@
      ## objective function
     'fn.lnf' <- function(lambda)
       {
-        r <- .C('fnlnf_C',
-                lnp=as.double(log(fn.lambdap(lambda))),
-                lnk=as.double(as.vector(t(lnK))),
-                lnd=as.double(as.vector(t(lnD))),
-                Np=as.integer(Np),
-                H=as.integer(H),
-                f=as.double(0),
-                grad=vector('double',H),
-                PACKAGE='AdMit',
-                NAOK=TRUE,
-                DUP=FALSE)
+        r <- .C(name = 'fnlnf_C',
+                lnp = as.double(log(fn.lambdap(lambda))),
+                lnk = as.double(as.vector(t(lnK))),
+                lnd = as.double(as.vector(t(lnD))),
+                Np = as.integer(Np),
+                H = as.integer(H),
+                f = as.double(0),
+                grad = vector('double',H),
+                PACKAGE = 'AdMit',
+                NAOK = TRUE,
+                DUP = FALSE)
 
         assign('grad', r$grad, env=memo)
         as.numeric(r$f)
