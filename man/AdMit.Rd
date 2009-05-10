@@ -234,7 +234,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008). 
   The AdMit Package.
   \emph{Econometric Institute report} \bold{2008-17}.
-  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in Rnews)
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in the R Journal)
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009). 
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate

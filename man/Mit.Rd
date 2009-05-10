@@ -10,8 +10,8 @@
   Student-t distributions
 }
 \usage{%
-dMit(theta, mit=list(), log=TRUE)
-rMit(N=1, mit=list())
+dMit(theta, mit = list(), log = TRUE)
+rMit(N = 1, mit = list())
 }
 \arguments{%
   \item{theta}{matrix (of size \eqn{N \times d}{Nxd}, where
@@ -65,7 +65,7 @@ rMit(N=1, mit=list())
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008). 
   The AdMit Package.
   \emph{Econometric Institute report} \bold{2008-17}.
-  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in Rnews)
+  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in the R Journal)
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009). 
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate

@@ -1,6 +1,6 @@
-desc <- packageDescription("AdMit")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
-vers <- paste("version", desc$Version)
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("AdMit")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("version", meta$Version)
 
 citHeader("To cite 'AdMit' in publications use:")
 
@@ -43,9 +43,9 @@ citEntry(entry = "techreport",
                              person("Herman","van Dijk","K.")),
          year = "2008",
          url = "http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf",
-         note = "Econometric Institute report 2008-17 (forthcoming in Rnews)",
+         note = "Econometric Institute report 2008-17 (forthcoming in the R Journal)",
 	 textVersion =
          paste("David Ardia, Lennart F. Hoogerheide, Herman K. van Dijk (2008).",
                "The 'AdMit' Package.",
-               "Econometric Institute report 2008-17. (forthcoming in Rnews)")
+               "Econometric Institute report 2008-17. (forthcoming in the R Journal)")
 )
