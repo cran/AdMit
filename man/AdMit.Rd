@@ -210,7 +210,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
 }
 \note{%
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia, Hoogerheide, van Dijk (2008, 2009). See also
+  can be found in Ardia, Hoogerheide, van Dijk (2009a,b). See also
   the package vignette by typing \code{vignette("AdMit")} and the
   files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
 
@@ -231,15 +231,15 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   Lennart F. Hoogerheide and Herman K. van Dijk for the \code{AdMit} algorithm.
 }
 \references{%
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2008). 
-  The AdMit Package.
-  \emph{Econometric Institute report} \bold{2008-17}.
-  \url{http://publishing.eur.nl/ir/repub/asset/13053/EI2008-17.pdf} (forthcoming in the R Journal)
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
+  AdMit: Adaptive Mixture of Student-t Distributions.
+  \emph{The R Journal} \bold{1}(1), pp.25--30.
+  \url{http://journal.r-project.org/2009-1/}
 
-  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009). 
+  Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009b).
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate
   Distribution for Efficient Simulation: The R Package AdMit.
-  \emph{Journal of Statistical Software} \bold{29}(3).
+  \emph{Journal of Statistical Software} \bold{29}(3), pp.1--32.
   \url{http://www.jstatsoft.org/v29/i03/}
 
   Gelman, A., Meng, X.-L. (1991). 

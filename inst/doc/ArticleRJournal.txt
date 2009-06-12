@@ -1,6 +1,7 @@
-## THE 'ADMIT' PACKAGE
+## 'ADMIT': ADAPTIVE MIXTURE OF STUDENT-T DISTRIBUTIONS
 ## by David Ardia, Lennart F. Hoogerheide, Herman K. van Dijk
-## forthcoming in Rnews
+## 2009, The R Journal 1(1), pp. 25-30
+## URL http://journal.r-project.org/2009-1/
 ## this version : 20090103 / David Ardia <david.ardia@unifr.ch>
 
 ## Initialisation

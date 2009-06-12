@@ -1,7 +1,7 @@
 ## ADAPTIVE MIXTURE OF STUDENT-T DISTRIBUTIONS AS A FLEXIBLE CANDIDATE
 ## DISTRIBUTION FOR EFFICIENT SIMULATION: THE 'R' PACKAGE 'ADMIT'
 ## by David Ardia, Lennart F. Hoogerheide, Herman K. van Dijk
-## 2009, Journal of Statistical Software 29(3)
+## 2009, Journal of Statistical Software 29(3), pp 1-32
 ## URL : http://www.jstatsoft.org/v29/i03/
 ## this version : 20090105 / David Ardia <david.ardia@unifr.ch>
 

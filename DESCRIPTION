@@ -1,6 +1,6 @@
 Package: AdMit
-Version: 1-01.02
-Date: 2009-05-10
+Version: 1-01.03
+Date: 2009-06-12
 Title: Adaptive Mixture of Student-t distributions
 Author: David Ardia, Lennart F. Hoogerheide and Herman K. van Dijk
 Maintainer: David Ardia <david.ardia@unifr.ch>
@@ -15,6 +15,6 @@ Description: This package provides functions to perform the fitting of
         density itself.
 License: GPL (>= 2)
 URL: http://perso.unifr.ch/david.ardia/
-Packaged: Sun May 10 14:04:29 2009; David Ardia
+Packaged: Sat Jun 13 00:11:39 2009; David Ardia
 Repository: CRAN
-Date/Publication: 2009-05-11 10:28:18
+Date/Publication: 2009-08-20 13:47:40
