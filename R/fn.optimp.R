@@ -35,7 +35,7 @@
                 NAOK = TRUE,
                 DUP = FALSE)
 
-        assign('grad', r$grad, env=memo)
+        assign('grad', r$grad, envir = memo)
         as.numeric(r$f)
       }
     
@@ -47,7 +47,7 @@
         tmp <- -e %*% t(e) / s^2
         diag(tmp) <- (e*s-e^2) / s^2
         gradlambda <- as.matrix(tmp[1:H,1:(H-1)])
-        grad <- get('grad', env=memo) ## take gradient from fn.lnf
+        grad <- get('grad', envir = memo) ## take gradient from fn.lnf
         
         as.vector(t(gradlambda)%*%grad)
       }

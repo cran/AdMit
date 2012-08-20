@@ -5,16 +5,16 @@ vers <- paste("version", meta$Version)
 citHeader("To cite 'AdMit' in publications use:")
 
 citEntry(entry = "manual",
-	 title = "The {AdMit} Package: Adaptive Mixture of Student-$t$ Distributions",
+	 title = "{AdMit}: Adaptive Mixture of Student-$t$ Distributions in {R}",
 	 author = personList(person("David","Ardia"),
                              person("Lennart","Hoogerheide","F."),
                              person("Herman","van Dijk","K.")),
-         year = year,
+     year = year,
 	 note = vers,
 	 url = "http://CRAN.R-project.org/package=AdMit",
 	 textVersion =
          paste("David Ardia, Lennart F. Hoogerheide, Herman K. van Dijk (", year,"). ",
-               "The 'AdMit' Package: Adaptive Mixture of Student-t Distributions. ", vers, ".", sep = "")
+               "'AdMit': Adaptive Mixture of Student-t Distributions in 'R'. ", vers, ".", sep = "")
 )
 
 citEntry(entry = "article",
@@ -32,7 +32,7 @@ citEntry(entry = "article",
 	 textVersion =
          paste("David Ardia, Lennart F. Hoogerheide, Herman K. van Dijk (2009).",
                "Adaptive Mixture of Student-t Distribution as a Flexible Candidate Distribution for 
-                Efficient Simulation: The R package 'AdMit'.",
+                Efficient Simulation: The 'R' package 'AdMit'.",
                "Journal of Statistical Software 29(3).",
                "URL http://www.jstatsoft.org/v29/i03/.")
 )
