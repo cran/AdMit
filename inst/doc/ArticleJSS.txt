@@ -193,7 +193,7 @@ KERNEL <- function(theta, y, log = TRUE)
   prior <- PRIOR(theta[,1], theta[,2], theta[,3], theta[,4])
   
   ## the kernel function is implemented in C in order to speed up the estimation
-  d <- .C(name = "fnKernelMixtureArch_C",
+  d <- .C("fnKernelMixtureArch_C",
           theta = as.double( as.vector(t(theta)) ),
           N = as.integer(N),
           y = as.double(y),

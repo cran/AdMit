@@ -132,34 +132,7 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
 
   ## Use importance sampling with the mixture approximation as the
   ## importance density
-  outAdMitIS <- AdMitIS(KERNEL = GelmanMeng, mit = outAdMit$mit)
+  outAdMitIS <- AdMitIS(N = 1e4, KERNEL = GelmanMeng, mit = outAdMit$mit)
   print(outAdMitIS)
-
-  ## Covariance matrix estimated by importance sampling
-  G.cov <- function(theta, mu)
-  {
-    G.cov_sub <- function(x)
-      (x - mu) %*% t(x - mu)
-
-    theta <- as.matrix(theta)
-    tmp <- apply(theta, 1, G.cov_sub)
-    if (length(mu) > 1)
-      t(tmp)
-    else
-      as.matrix(tmp)
-  }
-
-  outAdMitIS <- AdMitIS(KERNEL = GelmanMeng, 
-                        G = G.cov, 
-                        mit = outAdMit$mit,
-                        mu = c(1.459, 1.459))
-  print(outAdMitIS)
-
-  ## Covariance matrix
-  V <- matrix(outAdMitIS$ghat, 2, 2)
-  print(V)
-  
-  ## Correlation matrix
-  cov2cor(V)
 }
 \keyword{htest}

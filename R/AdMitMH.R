@@ -23,7 +23,7 @@
     lnw <- fn.w(theta, KERNEL=KERNEL, mit=mit, log=TRUE, ...)
     k <- ncol(mit$mu)
     
-    r <- .C(name = 'fnMH_C',
+    r <- .C('fnMH_C',
             theta = as.double(as.vector(t(theta))),
             N = as.integer(N),
             k = as.integer(k),

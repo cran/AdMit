@@ -23,7 +23,7 @@
      ## objective function
     'fn.lnf' <- function(lambda)
       {
-        r <- .C(name = 'fnlnf_C',
+        r <- .C('fnlnf_C',
                 lnp = as.double(log(fn.lambdap(lambda))),
                 lnk = as.double(as.vector(t(lnK))),
                 lnd = as.double(as.vector(t(lnD))),

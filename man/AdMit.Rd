@@ -297,42 +297,5 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
                     mu0 = c(0.0, 0.1), 
                     control = list(IS = TRUE))
   print(outAdMit)
-
-  ## Simple econometric model: y_t ~ i.i.d. N(mu,sigma^2)
-  ## Jeffreys prior p(theta) prop 1/sigma for sigma > 0
-  KERNEL <- function(theta, y, log = TRUE)
-  {
-    if (is.vector(theta))
-      theta <- matrix(theta, nrow = 1)
-
-    KERNEL_sub <- function(thetai)
-    {
-      if (thetai[2] > 0)
-        {
-          r <- - log(thetai[2]) + sum(dnorm(y, thetai[1], thetai[2], TRUE))
-        }
-      else
-        {
-          r <- -Inf
-        }
-      as.numeric(r)
-    }
-    r <- apply(theta, 1, KERNEL_sub)
-    if (!log)
-      r <- exp(r)
-    as.numeric(r)
-  }
-
-  ## Generate 20 draws for mu = 1 and sigma = 0.5
-  set.seed(1234)
-  y <- rnorm(20, 2, 0.5)
-
-  ## Run AdMit (with default values); pass the vector y
-  ## of observations using the ... argument of AdMit and
-  ## print steps of the fitting process
-  outAdMit <- AdMit(KERNEL = KERNEL, 
-                    mu0 = c(1.0, 1.0), 
-                    y = y, control = list(trace = TRUE))
-  print(outAdMit)
 }
 \keyword{htest}

@@ -1,3 +1,10 @@
+Changes in Version 1-01.05
+  o Speedup of computations for the examples
+
+Changes in Version 1-01.05
+  o The argument names of .C etc were changed in 2.13.0 to start with .NAME (to avoid confusion with names= in ...)
+    for back-compatibility unnamed first argument
+
 Changes in Version 1-01.04
   o dMit and rMit modified to account of several degrees of freedom; this
     allows MitISEM to use these functions

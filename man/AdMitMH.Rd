@@ -115,7 +115,7 @@ AdMitMH(N = 1e5, KERNEL, mit = list(), ...)
                     mu0 = c(0.0, 0.1))
 
   ## Run M-H using the mixture approximation as the candidate density
-  outAdMitMH <- AdMitMH(KERNEL = GelmanMeng, mit = outAdMit$mit)
+  outAdMitMH <- AdMitMH(N = 1e4, KERNEL = GelmanMeng, mit = outAdMit$mit)
   options(digits = 4, max.print = 40)
   print(outAdMitMH)
 
