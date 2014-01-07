@@ -1,4 +1,12 @@
-Changes in Version 1-01.05
+Changes in Version 2.0.1
+  o Compilation for new version on CRAN
+  o New email address
+  o Package's structure modified
+  o Vignette's PDF compressed
+  o Speedup of examples
+  o New version number format
+
+Changes in Version 1-01.06
   o Speedup of computations for the examples
 
 Changes in Version 1-01.05

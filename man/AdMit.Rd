@@ -227,7 +227,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   Please cite the package in publications. Use \code{citation("AdMit")}.
 }
 \author{%
-  David Ardia <\email{david.ardia@unifr.ch}> for the \R port,
+  David Ardia for the \R port,
   Lennart F. Hoogerheide and Herman K. van Dijk for the \code{AdMit} algorithm.
 }
 \references{%
@@ -273,6 +273,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   the candidate density.
 }
 \examples{%
+  ## NB : Low number of draws for speedup. Consider using more draws!
   ## Gelman and Meng (1991) kernel function
   GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
   {
@@ -287,7 +288,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
 
   ## Run AdMit (with default values)
   set.seed(1234)
-  outAdMit <- AdMit(GelmanMeng, mu0 = c(0.0, 0.1))
+  outAdMit <- AdMit(GelmanMeng, mu0 = c(0.0, 0.1), control = list(Ns = 1e4))
   print(outAdMit)
 
   ## Run AdMit (using importance sampling to estimate
@@ -295,7 +296,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   set.seed(1234)
   outAdMit <- AdMit(KERNEL = GelmanMeng, 
                     mu0 = c(0.0, 0.1), 
-                    control = list(IS = TRUE))
+                    control = list(IS = TRUE, Ns = 1e4))
   print(outAdMit)
 }
 \keyword{htest}

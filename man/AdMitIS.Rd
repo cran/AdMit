@@ -84,7 +84,7 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
 
   Please cite the package in publications. Use \code{citation("AdMit")}.
 }
-\author{David Ardia <\email{david.ardia@unifr.ch}>}
+\author{David Ardia}
 \references{%
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
   AdMit: Adaptive Mixture of Student-t Distributions.
@@ -113,6 +113,7 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
   as the candidate density.
 }
 \examples{%
+  ## NB : Low number of draws for speedup. Consider using more draws!
   ## Gelman and Meng (1991) kernel function
   GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
   {
@@ -128,7 +129,7 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
   ## Run the AdMit function to fit the mixture approximation
   set.seed(1234)
   outAdMit <- AdMit(KERNEL = GelmanMeng, 
-                    mu0 = c(0.0, 0.1))
+                    mu0 = c(0.0, 0.1), control = list(Ns = 1e4))
 
   ## Use importance sampling with the mixture approximation as the
   ## importance density
