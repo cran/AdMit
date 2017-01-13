@@ -58,8 +58,7 @@ AdMitMH(N = 1e5, KERNEL, mit = list(), ...)
 \note{%
   Further details and examples of the \R package \code{AdMit}
   can be found in Ardia, Hoogerheide and van Dijk (2009a,b). See also
-  the package vignette by typing \code{vignette("AdMit")} and the
-  files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
+  the package vignette by typing \code{vignette("AdMit")}.
 
   Further information on the Metropolis-Hastings algorithm can be found
   in Chib and Greenberg (1995) and Koop (2003).
@@ -71,13 +70,13 @@ AdMitMH(N = 1e5, KERNEL, mit = list(), ...)
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
   AdMit: Adaptive Mixture of Student-t Distributions.
   \emph{The R Journal} \bold{1}(1), pp.25--30.
-  \url{http://journal.r-project.org/2009-1/}
+  \url{https://journal.r-project.org/archive/2009-1/}
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009b).
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate
   Distribution for Efficient Simulation: The R Package AdMit.
   \emph{Journal of Statistical Software} \bold{29}(3), pp.1--32.
-  \url{http://www.jstatsoft.org/v29/i03/}
+  \doi{10.18637/jss.v029.i03}
 
   Chib, S., Greenberg, E. (1995). 
   Understanding the Metropolis-Hasting Algorithm. 

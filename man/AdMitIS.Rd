@@ -76,9 +76,8 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
 \note{%
   Further details and examples of the \R package \code{AdMit}
   can be found in Ardia, Hoogerheide, van Dijk (2009a,b). See also
-  the package vignette by typing \code{vignette("AdMit")} and the
-  files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
-  
+  the package vignette by typing \code{vignette("AdMit")}.
+
   Further information on importance sampling can be found
   in Geweke (1989) or Koop (2003).
 
@@ -89,13 +88,13 @@ AdMitIS(N = 1e5, KERNEL, G = function(theta){theta}, mit = list(), ...)
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
   AdMit: Adaptive Mixture of Student-t Distributions.
   \emph{The R Journal} \bold{1}(1), pp.25--30.
-  \url{http://journal.r-project.org/2009-1/}
+  \url{https://journal.r-project.org/archive/2009-1/}
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009b).
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate
   Distribution for Efficient Simulation: The R Package AdMit.
   \emph{Journal of Statistical Software} \bold{29}(3), pp.1--32.
-  \url{http://www.jstatsoft.org/v29/i03/}
+  \doi{10.18637/jss.v029.i03}
 
   Geweke, J.F. (1989).
   Bayesian Inference in Econometric Models Using Monte Carlo Integration.

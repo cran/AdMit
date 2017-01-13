@@ -1,3 +1,16 @@
+Changes in Version 2.1.1
+  o Info added in DESCRIPTION
+
+Changes in Version 2.1.0
+  o Preparation for new release on CRAN
+
+Changes in Version 2.0.3
+  o Update information
+
+Changes in Version 2.0.2
+  o DESCRIPTION file adapted to new standard
+  o Vignette modified
+
 Changes in Version 2.0.1
   o Compilation for new version on CRAN
   o New email address

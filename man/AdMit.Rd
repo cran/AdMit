@@ -211,8 +211,7 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
 \note{%
   Further details and examples of the \R package \code{AdMit}
   can be found in Ardia, Hoogerheide, van Dijk (2009a,b). See also
-  the package vignette by typing \code{vignette("AdMit")} and the
-  files \file{AdMitJSS.txt} and \file{AdMitRnews.txt} in the \file{/doc} package's folder.
+  the package vignette by typing \code{vignette("AdMit")}.
 
   Further details on the core algorithm are given in
   Hoogerheide (2006), Hoogerheide, Kaashoek, van Dijk (2007) and
@@ -234,13 +233,13 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
   AdMit: Adaptive Mixture of Student-t Distributions.
   \emph{The R Journal} \bold{1}(1), pp.25--30.
-  \url{http://journal.r-project.org/2009-1/}
+  \url{https://journal.r-project.org/archive/2009-1/}
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009b).
   Adaptive Mixture of Student-t Distributions as a Flexible Candidate
   Distribution for Efficient Simulation: The R Package AdMit.
   \emph{Journal of Statistical Software} \bold{29}(3), pp.1--32.
-  \url{http://www.jstatsoft.org/v29/i03/}
+  \doi{10.18637/jss.v029.i03}
 
   Gelman, A., Meng, X.-L. (1991). 
   A Note on Bivariate Distributions That Are Conditionally Normal. 
@@ -256,14 +255,13 @@ AdMit(KERNEL, mu0, Sigma0 = NULL, control = list(), ...)
   On the Shape of Posterior Densities and Credible Sets in Instrumental Variable Regression Models with Reduced
   Rank: An Application of Flexible Sampling Methods using Neural Networks.
   \emph{Journal of Econometrics} \bold{139}(1), pp.154--180. 
-  doi: 10.1016/j.jeconom.2006.06.009.
+  \doi{10.1016/j.jeconom.2006.06.009}
 
   Hoogerheide, L.F., van Dijk, H.K. (2008). 
   Possibly Ill-Behaved Posteriors in Econometric Models: On the Connection between Model
   Structures, Non-elliptical Credible Sets and Neural Network
   Simulation Techniques. 
-  \emph{Tinbergen Institute discussion paper} \bold{2008-036/4}. 
-  \url{http://www.tinbergen.nl/discussionpapers/08036.pdf}
+  \emph{Tinbergen Institute discussion paper} \bold{2008-036/4}.
 }
 \seealso{%
   \code{\link{AdMitIS}} for importance sampling using an

@@ -1,7 +1,7 @@
 ### R code from vignette source 'AdMit.Rnw'
 
 ###################################################
-### code chunk number 1: AdMit.Rnw:118-121
+### code chunk number 1: AdMit.Rnw:105-108
 ###################################################
 rm(list = ls())
 library("AdMit")
@@ -9,7 +9,7 @@ options(digits = 4, max.print = 40, prompt = "R> ", continue = "+   ")
 
 
 ###################################################
-### code chunk number 2: AdMit.Rnw:605-614
+### code chunk number 2: AdMit.Rnw:592-601
 ###################################################
 GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
 {
@@ -23,7 +23,7 @@ GelmanMeng <- function(x, A = 1, B = 0, C1 = 3, C2 = 3, log = TRUE)
 
 
 ###################################################
-### code chunk number 3: AdMit.Rnw:621-632
+### code chunk number 3: AdMit.Rnw:608-619
 ###################################################
 PlotGelmanMeng <- function(x1, x2)
 {
@@ -39,7 +39,7 @@ abline(a = 0, b = 1, lty = "dotted")
 
 
 ###################################################
-### code chunk number 4: AdMit.Rnw:639-650
+### code chunk number 4: AdMit.Rnw:626-637
 ###################################################
 PlotGelmanMeng <- function(x1, x2)
 {
@@ -55,7 +55,7 @@ abline(a = 0, b = 1, lty = "dotted")
 
 
 ###################################################
-### code chunk number 5: AdMit.Rnw:661-664
+### code chunk number 5: AdMit.Rnw:648-651
 ###################################################
 set.seed(1234)
 outAdMit <- AdMit(KERNEL = GelmanMeng, mu0 = c(0.0, 0.1))
@@ -63,7 +63,7 @@ print(outAdMit)
 
 
 ###################################################
-### code chunk number 6: AdMit.Rnw:701-711
+### code chunk number 6: AdMit.Rnw:688-698
 ###################################################
 PlotMit <- function(x1, x2, mit)
 {
@@ -78,7 +78,7 @@ abline(a = 0, b = 1, lty = "dotted")
 
 
 ###################################################
-### code chunk number 7: AdMit.Rnw:716-726
+### code chunk number 7: AdMit.Rnw:703-713
 ###################################################
 PlotMit <- function(x1, x2, mit)
 {
@@ -93,7 +93,7 @@ abline(a = 0, b = 1, lty = "dotted")
 
 
 ###################################################
-### code chunk number 8: AdMit.Rnw:737-752
+### code chunk number 8: AdMit.Rnw:724-739
 ###################################################
 par(mfrow = c(2,2))
 for (h in 1:4)
@@ -113,7 +113,7 @@ for (h in 1:4)
 
 
 ###################################################
-### code chunk number 9: AdMit.Rnw:758-773
+### code chunk number 9: AdMit.Rnw:745-760
 ###################################################
 par(mfrow = c(2,2))
 for (h in 1:4)
@@ -133,7 +133,7 @@ for (h in 1:4)
 
 
 ###################################################
-### code chunk number 10: AdMit.Rnw:803-806
+### code chunk number 10: AdMit.Rnw:790-793
 ###################################################
 set.seed(1234)
 outAdMitIS <- AdMitIS(KERNEL = GelmanMeng, mit = outAdMit$mit)
@@ -141,7 +141,7 @@ print(outAdMitIS)
 
 
 ###################################################
-### code chunk number 11: AdMit.Rnw:838-849
+### code chunk number 11: AdMit.Rnw:825-836
 ###################################################
 G.cov <- function(theta, mu)
 {
@@ -157,7 +157,7 @@ G.cov <- function(theta, mu)
 
 
 ###################################################
-### code chunk number 12: AdMit.Rnw:852-857
+### code chunk number 12: AdMit.Rnw:839-844
 ###################################################
 set.seed(1234)
 outAdMitIS <- AdMitIS(KERNEL = GelmanMeng, G = G.cov, mit = outAdMit$mit, mu = c(1.459, 1.459))
@@ -167,13 +167,13 @@ print(V)
 
 
 ###################################################
-### code chunk number 13: AdMit.Rnw:866-867
+### code chunk number 13: AdMit.Rnw:853-854
 ###################################################
 cov2cor(V)
 
 
 ###################################################
-### code chunk number 14: AdMit.Rnw:886-889
+### code chunk number 14: AdMit.Rnw:873-876
 ###################################################
 set.seed(1234)
 outAdMitMH <- AdMitMH(KERNEL = GelmanMeng, mit = outAdMit$mit)
@@ -181,13 +181,13 @@ print(outAdMitMH)
 
 
 ###################################################
-### code chunk number 15: AdMit.Rnw:909-910
+### code chunk number 15: AdMit.Rnw:896-897
 ###################################################
 library("coda")
 
 
 ###################################################
-### code chunk number 16: AdMit.Rnw:912-915
+### code chunk number 16: AdMit.Rnw:899-902
 ###################################################
 draws <- as.mcmc(outAdMitMH$draws[1001:1e5,])
 colnames(draws) <- c("X1", "X2")
@@ -195,7 +195,7 @@ summary(draws)$stat
 
 
 ###################################################
-### code chunk number 17: AdMit.Rnw:922-923
+### code chunk number 17: AdMit.Rnw:909-910
 ###################################################
 summary(draws)$stat[,3]^2 / summary(draws)$stat[,4]^2
 
