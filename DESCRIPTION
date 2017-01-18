@@ -1,6 +1,6 @@
 Package: AdMit
-Version: 2.1.1
-Date: 2017-01-13
+Version: 2.1.2
+Date: 2017-01-17
 Title: Adaptive Mixture of Student-t Distributions
 Authors@R: c(person("David", "Ardia", role = c("aut", "cre"),
              email = "david.ardia.ch@gmail.com"),
@@ -21,6 +21,6 @@ Description: Provides functions to perform the fitting of an adaptive mixture
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2017-01-13 11:14:43 UTC; ardiad
+Packaged: 2017-01-18 08:46:08 UTC; ardiad
 Repository: CRAN
-Date/Publication: 2017-01-13 15:39:11
+Date/Publication: 2017-01-18 18:07:05
