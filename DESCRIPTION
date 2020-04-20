@@ -1,6 +1,6 @@
 Package: AdMit
-Version: 2.1.4
-Date: 2020-04-19
+Version: 2.1.5
+Date: 2020-04-20
 Title: Adaptive Mixture of Student-t Distributions
 Authors@R: c(person("David", "Ardia", role = c("aut", "cre", "cph"),
              email = "david.ardia.ch@gmail.com", comment = c(ORCID = "0000-0003-2823-782X")),
@@ -20,9 +20,9 @@ URL: https://github.com/ArdiaD/AdMit
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2020-04-19 05:44:14 UTC; ardiad
+Packaged: 2020-04-20 12:48:27 UTC; ardiad
 Author: David Ardia [aut, cre, cph] (<https://orcid.org/0000-0003-2823-782X>),
   Lennart Hoogerheide [ctb],
   Herman van Dijk [ctb]
 Repository: CRAN
-Date/Publication: 2020-04-19 06:10:12 UTC
+Date/Publication: 2020-04-20 21:50:11 UTC
