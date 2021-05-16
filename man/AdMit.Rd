@@ -216,8 +216,7 @@ By using \code{AdMit} you agree to the following rules:
 \item You assume all risk for the use of \code{AdMit}.
 }
   Further details and examples of the \R package \code{AdMit}
-  can be found in Ardia et al. (2009a,b). See also
-  the package vignette by typing \code{vignette("AdMit")}.
+  can be found in Ardia et al. (2009a,b). 
 
   Further details on the core algorithm are given in
   Hoogerheide (2006), Hoogerheide, Kaashoek, van Dijk (2007) and
@@ -228,8 +227,6 @@ By using \code{AdMit} you agree to the following rules:
   \code{mit} as the importance density or by the function \code{\link{AdMitMH}} to perform
   independence chain Metropolis-Hastings sampling using \code{mit} as the
   candidate density.
-
-  Please cite the package in publications. Use \code{citation("AdMit")}.
 }
 \author{%
   David Ardia for the \R port,
@@ -238,7 +235,7 @@ By using \code{AdMit} you agree to the following rules:
 \references{%
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009a).
   AdMit: Adaptive Mixture of Student-t Distributions.
-  \emph{The R Journal} \bold{1}(1), pp.25-30.
+  \emph{R Journal} \bold{1}(1), pp.25-30.
   \doi{10.32614/RJ-2009-003}
 
   Ardia, D., Hoogerheide, L.F., van Dijk, H.K. (2009b).
@@ -261,7 +258,6 @@ By using \code{AdMit} you agree to the following rules:
   On the Shape of Posterior Densities and Credible Sets in Instrumental Variable Regression Models with Reduced
   Rank: An Application of Flexible Sampling Methods using Neural Networks.
   \emph{Journal of Econometrics} \bold{139}(1), pp.154-180. 
-  \doi{10.1016/j.jeconom.2006.06.009}
 
   Hoogerheide, L.F., van Dijk, H.K. (2008). 
   Possibly Ill-Behaved Posteriors in Econometric Models: On the Connection between Model
